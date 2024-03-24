@@ -5,6 +5,7 @@ using Microsoft.Win32;
 using Newtonsoft.Json;
 using Npgsql;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Text.Json.Serialization;
 using System.Threading.Channels;
 
@@ -23,10 +24,12 @@ namespace fun_pontoeletronico
         public void Run([ServiceBusTrigger("grupo23-pontobatido", "pontoeletronico-sub")] string mySbMsg)
         {
             _logger.LogInformation($"C# ServiceBus topic trigger function processed message: {mySbMsg}");
-
+            
+            var sqlConnection = Environment.GetEnvironmentVariable("ConnectionStrings:SQLConnectionString");
+                   
             var registro = JsonConvert.DeserializeObject<RegitroPontos>(mySbMsg);
 
-            using (var conn = new NpgsqlConnection("Server=lanchonetedaruadb.c16om6u44j69.us-east-1.rds.amazonaws.com;Port=5432;Database=fiapihackatonrelatorios;User Id=postgres;Password=QE1muGg0fwsepsH;"))
+            using (var conn = new NpgsqlConnection(sqlConnection))
             {
                 conn.Open();
                 var id = Guid.NewGuid();
