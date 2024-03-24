@@ -9,4 +9,5 @@ public class RegitroPontos
     public DateTime Registro { get; set; }
     
     public bool MudancaAutorizada { get; set; } = false;
+    public string Tipo { get; set; }
 }

@@ -23,37 +23,20 @@ namespace fun_pontoeletronico
         [Function("PontoBatidoRecieve")]
         public void Run([ServiceBusTrigger("grupo23-pontobatido", "pontoeletronico-sub")] string mySbMsg)
         {
-            _logger.LogInformation($"C# ServiceBus topic trigger function processed message: {mySbMsg}");
-            
-            var sqlConnection = Environment.GetEnvironmentVariable("SQLConnectionString");
-                  
-            if (string.IsNullOrEmpty(sqlConnection))
-            {
-                throw new InvalidOperationException("string conexao do postgres invalida");
-            }
-
             _logger.LogInformation("Mensagem Recebida: " + mySbMsg);
 
             var registro = JsonConvert.DeserializeObject<RegitroPontos>(mySbMsg);
 
-            using (var conn = new NpgsqlConnection(sqlConnection))
+            if (new FuncionarioRepository().ExisteFuncionario(registro.Email) == false)
             {
-                conn.Open();
-                var id = Guid.NewGuid();
-                using (var cmd = new NpgsqlCommand())
-                {
-                    cmd.Connection = conn;
-                    cmd.CommandText =
-                        "insert into registro_ponto values (@Id, @Registro, @Tipo, @UserName)";
-
-                    cmd.Parameters.AddWithValue("Id", id);
-                    cmd.Parameters.AddWithValue("UserName", registro?.Email);
-                    cmd.Parameters.AddWithValue("Registro", registro.Registro);
-                    cmd.Parameters.AddWithValue("Tipo", "ENTRADA");
-
-                    cmd.ExecuteNonQuery();
-                }
+                _logger.LogInformation("Funcionario ainda não existe e será inserido: " + mySbMsg);
+                new FuncionarioRepository().Adicionar(registro.Email);
             }
+
+            var totalpontos = new RegistroPontoRepository().TotalPontosDoDia(registro.Email);
+
+            registro.Tipo = (totalpontos % 2 == 0 || totalpontos == 0) ? "ENTRADA" : "SAIDA";
+            new RegistroPontoRepository().Registrar(registro);
 
             _logger.LogInformation("Mensagem Inserida para consulta espelho");
         }
