@@ -26,7 +26,7 @@ namespace fun_pontoeletronico
                 }
             }
 
-            return true;
+            return false;
         }
 
         public void Adicionar(string email)

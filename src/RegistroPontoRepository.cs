@@ -60,7 +60,7 @@ group by
                 }
             }
 
-            return 1;
+            return 0;
         }
     }
 }
