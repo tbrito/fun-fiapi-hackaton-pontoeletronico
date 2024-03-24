@@ -25,12 +25,14 @@ namespace fun_pontoeletronico
         {
             _logger.LogInformation($"C# ServiceBus topic trigger function processed message: {mySbMsg}");
             
-            var sqlConnection = Environment.GetEnvironmentVariable("ConnectionStrings:SQLConnectionString");
+            var sqlConnection = Environment.GetEnvironmentVariable("SQLConnectionString");
                   
             if (string.IsNullOrEmpty(sqlConnection))
             {
                 throw new InvalidOperationException("string conexao do postgres invalida");
             }
+
+            _logger.LogInformation("Mensagem Recebida: " + mySbMsg);
 
             var registro = JsonConvert.DeserializeObject<RegitroPontos>(mySbMsg);
 
@@ -52,6 +54,8 @@ namespace fun_pontoeletronico
                     cmd.ExecuteNonQuery();
                 }
             }
+
+            _logger.LogInformation("Mensagem Inserida para consulta espelho");
         }
     }
 }
