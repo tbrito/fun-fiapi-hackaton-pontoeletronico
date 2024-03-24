@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34601.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fun-pontoeletronico", "src\fun-pontoeletronico.csproj", "{BD74B814-3A85-4DCD-94D9-368B8DC51A8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{A884F95A-587C-4F91-84F5-DB46F4F15B73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflow", "workflow", "{BC948B31-71DF-4367-ACEF-CA23A5044338}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\main_fun-hkton-fiapi-pontoeletronico.yml = .github\workflows\main_fun-hkton-fiapi-pontoeletronico.yml
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BD74B814-3A85-4DCD-94D9-368B8DC51A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD74B814-3A85-4DCD-94D9-368B8DC51A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD74B814-3A85-4DCD-94D9-368B8DC51A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD74B814-3A85-4DCD-94D9-368B8DC51A8C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC948B31-71DF-4367-ACEF-CA23A5044338} = {A884F95A-587C-4F91-84F5-DB46F4F15B73}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C3BA5703-3EFD-43D6-996F-053D2DFAC591}
+	EndGlobalSection
+EndGlobal

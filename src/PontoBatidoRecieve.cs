@@ -26,7 +26,12 @@ namespace fun_pontoeletronico
             _logger.LogInformation($"C# ServiceBus topic trigger function processed message: {mySbMsg}");
             
             var sqlConnection = Environment.GetEnvironmentVariable("ConnectionStrings:SQLConnectionString");
-                   
+                  
+            if (string.IsNullOrEmpty(sqlConnection))
+            {
+                throw new InvalidOperationException("string conexao do postgres invalida");
+            }
+
             var registro = JsonConvert.DeserializeObject<RegitroPontos>(mySbMsg);
 
             using (var conn = new NpgsqlConnection(sqlConnection))
