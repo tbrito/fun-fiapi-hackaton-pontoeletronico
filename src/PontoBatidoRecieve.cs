@@ -35,6 +35,8 @@ namespace fun_pontoeletronico
 
             var totalpontos = new RegistroPontoRepository().TotalPontosDoDia(registro.Email);
 
+            _logger.LogInformation("Pontos : " + totalpontos);
+
             registro.Tipo = (totalpontos % 2 == 0 || totalpontos == 0) ? "ENTRADA" : "SAIDA";
             new RegistroPontoRepository().Registrar(registro);
 
